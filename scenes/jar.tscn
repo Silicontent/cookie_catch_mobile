@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsc4nv4vkrkk"]
+
+[ext_resource type="Script" uid="uid://b8u2v8xws4kje" path="res://scripts/jar.gd" id="1_0uu57"]
+[ext_resource type="Texture2D" uid="uid://cvbwopjrjij2o" path="res://assets/player/jar.png" id="2_sg1ja"]
+[ext_resource type="Texture2D" uid="uid://bclfitvupd6og" path="res://assets/player/cookie_fill_mask.png" id="3_kwyeq"]
+[ext_resource type="Texture2D" uid="uid://ce3iks13dncqv" path="res://assets/player/cookie_fill.png" id="3_sg1ja"]
+[ext_resource type="Script" uid="uid://pnpw4uwx1u0y" path="res://scripts/fill_sprite.gd" id="4_hrclp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sg1ja"]
+size = Vector2(2, 2)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pwlvn"]
+radius = 4.0
+height = 16.0
+
+[node name="Jar" type="CharacterBody2D"]
+texture_filter = 1
+scale = Vector2(4, 4)
+collision_mask = 0
+script = ExtResource("1_0uu57")
+
+[node name="FillMask" type="Sprite2D" parent="."]
+clip_children = 1
+position = Vector2(0, 1.5)
+texture = ExtResource("3_kwyeq")
+
+[node name="FillSprite" type="Sprite2D" parent="FillMask"]
+position = Vector2(0, 27)
+texture = ExtResource("3_sg1ja")
+script = ExtResource("4_hrclp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -1)
+texture = ExtResource("2_sg1ja")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_sg1ja")
+
+[node name="Opening" type="Area2D" parent="."]
+position = Vector2(0, -14)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Opening"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_pwlvn")
+
+[node name="OnScreenChecker" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(1.1, 0.1)
+
+[connection signal="area_entered" from="Opening" to="." method="_on_opening_area_entered"]
+[connection signal="screen_exited" from="OnScreenChecker" to="." method="_on_screen_exited"]

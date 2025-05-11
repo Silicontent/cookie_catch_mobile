@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bjb0o32236hxd"]
+
+[ext_resource type="Shader" uid="uid://d4hijblwhhh2" path="res://assets/cookie/palette_swap.gdshader" id="1_ac3e4"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_ac3e4")

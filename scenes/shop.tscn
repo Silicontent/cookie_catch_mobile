@@ -1,0 +1,187 @@
+[gd_scene load_steps=11 format=3 uid="uid://c2d2q507q24t1"]
+
+[ext_resource type="Script" uid="uid://c88p4o4c41j3g" path="res://scripts/shop.gd" id="1_032fp"]
+[ext_resource type="Shader" uid="uid://cjymrs8wqjg1a" path="res://assets/ui/bg_scroll.gdshader" id="1_xfvoa"]
+[ext_resource type="Texture2D" uid="uid://cbmwod64ld6ss" path="res://assets/ui/shop_bg.png" id="2_xfvoa"]
+[ext_resource type="FontFile" uid="uid://ccnm4phjt3y7u" path="res://assets/ui/font.ttf" id="3_1l46r"]
+[ext_resource type="Texture2D" uid="uid://dm5cogljsv2dr" path="res://assets/ui/jar_upgrade.png" id="5_2fc2m"]
+[ext_resource type="Texture2D" uid="uid://chdmnw0qjx6ki" path="res://assets/ui/cookie_upgrade.png" id="6_8r1wq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1l46r"]
+shader = ExtResource("1_xfvoa")
+shader_parameter/speed = 0.02
+
+[sub_resource type="LabelSettings" id="LabelSettings_032fp"]
+font = ExtResource("3_1l46r")
+font_size = 61
+outline_size = 14
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p57ef"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="Theme" id="Theme_032fp"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.601223, 0.601223, 0.601223, 1)
+Button/constants/outline_size = 14
+Button/font_sizes/font_size = 61
+Button/fonts/font = ExtResource("3_1l46r")
+Button/styles/hover = SubResource("StyleBoxFlat_p57ef")
+Button/styles/normal = SubResource("StyleBoxFlat_p57ef")
+Button/styles/pressed = SubResource("StyleBoxFlat_p57ef")
+
+[node name="Shop" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_032fp")
+
+[node name="Background" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_1l46r")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xfvoa")
+stretch_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 30
+
+[node name="ShopContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="HeaderContainer" type="HBoxContainer" parent="MarginContainer/ShopContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Header" type="Label" parent="MarginContainer/ShopContainer/HeaderContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "SHOP - 0"
+label_settings = SubResource("LabelSettings_032fp")
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/ShopContainer/HeaderContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="BackButton" type="Button" parent="MarginContainer/ShopContainer/HeaderContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+focus_mode = 0
+theme = SubResource("Theme_032fp")
+text = "BACK"
+
+[node name="ItemContainer" type="MarginContainer" parent="MarginContainer/ShopContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/ShopContainer/ItemContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 50
+columns = 4
+
+[node name="JarIcon" type="TextureRect" parent="MarginContainer/ShopContainer/ItemContainer/GridContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(135, 170)
+layout_mode = 2
+size_flags_horizontal = 6
+texture = ExtResource("5_2fc2m")
+stretch_mode = 4
+
+[node name="MaxUpgrade" type="Button" parent="MarginContainer/ShopContainer/ItemContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Max Capacity (20)
+increase the number of cookies that can be caught at a time
+
+200 points"
+autowrap_mode = 2
+
+[node name="Button2" type="Button" parent="MarginContainer/ShopContainer/ItemContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Baskets (0)
+add baskets to the bottom of the screen that catch missed cookies
+
+1,000 points"
+autowrap_mode = 2
+
+[node name="Button3" type="Button" parent="MarginContainer/ShopContainer/ItemContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Magnet (0 seconds)
+increase the area around the jar that can catch cookies for a short period of time
+
+2,000 points"
+autowrap_mode = 2
+
+[node name="CookieIcon" type="TextureRect" parent="MarginContainer/ShopContainer/ItemContainer/GridContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(138, 170)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("6_8r1wq")
+stretch_mode = 5
+
+[node name="Button4" type="Button" parent="MarginContainer/ShopContainer/ItemContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Uncommon Cookies (0%)
++5 points when deposited
+
+500 points"
+autowrap_mode = 2
+
+[node name="Button5" type="Button" parent="MarginContainer/ShopContainer/ItemContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Rare Cookies (0%)
++8 points when deposited
+
+1,200 points"
+autowrap_mode = 2
+
+[node name="Button6" type="Button" parent="MarginContainer/ShopContainer/ItemContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Legendary Cookies (0%)
++12 points when deposited
+
+2,500 points"
+autowrap_mode = 2

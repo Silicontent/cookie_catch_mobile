@@ -1,0 +1,109 @@
+[gd_scene load_steps=11 format=3 uid="uid://c5ug32ml2dvg3"]
+
+[ext_resource type="Script" uid="uid://coqqur8wxr410" path="res://scripts/game.gd" id="1_u5sy4"]
+[ext_resource type="Texture2D" uid="uid://b30etibo6fxjd" path="res://assets/background.png" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://dsc4nv4vkrkk" path="res://scenes/jar.tscn" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://bfsbbb3u15pta" path="res://scripts/cookie_container.gd" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://cxxb3vewndh7e" path="res://scenes/cookie.tscn" id="4_lbhrr"]
+[ext_resource type="Script" uid="uid://dhrlfsdad8w1b" path="res://scripts/hud.gd" id="5_iywne"]
+[ext_resource type="FontFile" uid="uid://ccnm4phjt3y7u" path="res://assets/ui/font.ttf" id="6_p57ef"]
+[ext_resource type="Theme" uid="uid://e5mxiwfht7dp" path="res://assets/ui/button_normal.tres" id="8_gee14"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lnu2h"]
+size = Vector2(640, 576)
+
+[sub_resource type="LabelSettings" id="LabelSettings_u5sy4"]
+font = ExtResource("6_p57ef")
+font_size = 61
+outline_size = 14
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Game" type="Node2D"]
+process_mode = 1
+script = ExtResource("1_u5sy4")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(-360, -160)
+texture = ExtResource("1_uwrxv")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1920, 1080)
+
+[node name="Cookies" type="Node2D" parent="."]
+position = Vector2(0, -40)
+script = ExtResource("3_lnu2h")
+cookie = ExtResource("4_lbhrr")
+
+[node name="SpawnTimer" type="Timer" parent="Cookies"]
+autostart = true
+
+[node name="Jar" parent="." instance=ExtResource("2_yqjtg")]
+position = Vector2(640, 560)
+
+[node name="Controls" type="Node2D" parent="."]
+editor_description = "Container for the touch screen areas that control the jar."
+
+[node name="MoveLeftArea" type="TouchScreenButton" parent="Controls"]
+position = Vector2(320, 432)
+shape = SubResource("RectangleShape2D_lnu2h")
+action = "mv_left"
+
+[node name="MoveRightArea" type="TouchScreenButton" parent="Controls"]
+position = Vector2(960, 432)
+shape = SubResource("RectangleShape2D_lnu2h")
+action = "mv_right"
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("5_iywne")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 30
+
+[node name="ScoreDisplay" type="Label" parent="HUD/MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "0"
+label_settings = SubResource("LabelSettings_u5sy4")
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/separation = 105
+
+[node name="DepositButton" type="Button" parent="HUD/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+focus_mode = 0
+theme = ExtResource("8_gee14")
+text = "DEPOSIT"
+
+[node name="ShopButton" type="Button" parent="HUD/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+focus_mode = 0
+theme = ExtResource("8_gee14")
+text = "SHOP"
+
+[connection signal="timeout" from="Cookies/SpawnTimer" to="Cookies" method="_on_spawn_timer_timeout"]
+[connection signal="pressed" from="Controls/MoveLeftArea" to="Jar" method="_on_move_left_pressed"]
+[connection signal="released" from="Controls/MoveLeftArea" to="Jar" method="_on_move_released"]
+[connection signal="pressed" from="Controls/MoveRightArea" to="Jar" method="_on_move_right_pressed"]
+[connection signal="released" from="Controls/MoveRightArea" to="Jar" method="_on_move_released"]
+[connection signal="pressed" from="HUD/MarginContainer/HBoxContainer/DepositButton" to="Jar" method="_on_deposit_button_pressed"]
+[connection signal="pressed" from="HUD/MarginContainer/HBoxContainer/DepositButton" to="HUD" method="_on_deposit_button_pressed"]
