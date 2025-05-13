@@ -5,6 +5,8 @@ const BTN_HIGHLIGHT_THEME := preload("res://assets/ui/button_highlight.tres")
 
 
 @onready var deposit_btn := $MarginContainer/HBoxContainer/DepositButton
+@onready var deposit_sfx := $DepositSFX
+
 # label that shows the current score
 @onready var score_display := $MarginContainer/ScoreDisplay
 
@@ -23,8 +25,11 @@ func _process(_delta: float) -> void:
 # DEPOSITING ==================================================================
 func _on_deposit_button_pressed() -> void:
 	Globals.score += Globals.score_to_collect
-	Globals.score_to_collect = 0
 	score_display.text = Globals.add_commas_to_num(Globals.score)
+	if Globals.score_to_collect > 0:
+		deposit_sfx.play()
+	
+	Globals.score_to_collect = 0
 	
 	# return deposit button to normal look (if look has changed)
 	deposit_btn.theme = BTN_NORMAL_THEME

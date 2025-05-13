@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bickm68wt32k7"
+path="res://.godot/imported/scopic 2.mp3-ff85b7c8cb54ce419bdaaf6965358e31.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/scopic 2.mp3"
+dest_files=["res://.godot/imported/scopic 2.mp3-ff85b7c8cb54ce419bdaaf6965358e31.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

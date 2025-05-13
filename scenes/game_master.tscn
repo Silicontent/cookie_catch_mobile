@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfitggr0nrgen"]
+[gd_scene load_steps=8 format=3 uid="uid://dfitggr0nrgen"]
 
 [ext_resource type="Script" uid="uid://clco2ktd28jdl" path="res://scripts/game_master.gd" id="1_5dhe3"]
 [ext_resource type="PackedScene" uid="uid://c5ug32ml2dvg3" path="res://scenes/game.tscn" id="2_tq1cx"]
 [ext_resource type="PackedScene" uid="uid://c2d2q507q24t1" path="res://scenes/shop.tscn" id="3_i2urk"]
+[ext_resource type="AudioStream" uid="uid://bickm68wt32k7" path="res://assets/audio/scopic 2.mp3" id="4_i2urk"]
 
 [sub_resource type="Animation" id="Animation_i2urk"]
 length = 0.001
@@ -66,3 +67,8 @@ color = Color(0, 0, 0, 0)
 libraries = {
 &"": SubResource("AnimationLibrary_mr75u")
 }
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_i2urk")
+volume_db = -10.0
+autoplay = true

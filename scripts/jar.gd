@@ -1,17 +1,10 @@
-'''
-POTENTIAL UPGRADES/POWERS
-
-- collection bowls: stationary cookie catches that lie below the main jar
-- find a way to incorporate both score and jar capacity (deposit cookies into score?)
-- 
-'''
-
-
 class_name Jar
 extends CharacterBody2D
 
 # visual showing how full the jar is 
 @onready var fill_sprite := $FillMask/FillSprite
+# plays when a cookie is collected
+@onready var pickup_sfx := $PickupSFX
 
 const SPEED := 350.0
 # gets raw player input
@@ -62,6 +55,10 @@ func collect_cookie(score: int) -> void:
 	Globals.cookie_amt += 1.0
 	Globals.score_to_collect += score
 	update_fill()
+	
+	# play sound at a slightly varied pitch
+	pickup_sfx.pitch_scale = randf_range(0.95, 1.05)
+	pickup_sfx.play()
 
 
 func _on_opening_area_entered(area: Area2D) -> void:

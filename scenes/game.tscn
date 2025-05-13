@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c5ug32ml2dvg3"]
+[gd_scene load_steps=12 format=3 uid="uid://c5ug32ml2dvg3"]
 
 [ext_resource type="Script" uid="uid://coqqur8wxr410" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://b30etibo6fxjd" path="res://assets/background.png" id="1_uwrxv"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dhrlfsdad8w1b" path="res://scripts/hud.gd" id="5_iywne"]
 [ext_resource type="FontFile" uid="uid://ccnm4phjt3y7u" path="res://assets/ui/font.ttf" id="6_p57ef"]
 [ext_resource type="Theme" uid="uid://e5mxiwfht7dp" path="res://assets/ui/button_normal.tres" id="8_gee14"]
+[ext_resource type="AudioStream" uid="uid://g0dpnak7sjcx" path="res://assets/audio/deposit.wav" id="9_0tnpc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lnu2h"]
 size = Vector2(640, 576)
@@ -99,6 +100,10 @@ size_flags_vertical = 0
 focus_mode = 0
 theme = ExtResource("8_gee14")
 text = "SHOP"
+
+[node name="DepositSFX" type="AudioStreamPlayer" parent="HUD"]
+stream = ExtResource("9_0tnpc")
+volume_db = -3.0
 
 [connection signal="timeout" from="Cookies/SpawnTimer" to="Cookies" method="_on_spawn_timer_timeout"]
 [connection signal="pressed" from="Controls/MoveLeftArea" to="Jar" method="_on_move_left_pressed"]

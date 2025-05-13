@@ -10,7 +10,7 @@ func _ready() -> void:
 	target_y = EMPTY_Y
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# by moving this sprite this way, it acts almost like a percentage bar,
 	# showing the percentage of the jar that is filled
 	position.y = lerp(position.y, target_y, 0.1)
